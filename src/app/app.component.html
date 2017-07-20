@@ -1,0 +1,9 @@
+<app-header (recipesClicked)="switchToRecipes()" (shoppingClicked)="switchToShopping()"></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <app-recipe-book *ngIf="isRecipesOpen()"></app-recipe-book>
+      <app-shopping-list *ngIf="isShoppingOpen()"></app-shopping-list>
+    </div>
+  </div>
+</div>
