@@ -11,4 +11,8 @@ export class ShoppingListComponent {
 
   constructor(protected shoppingService: ShoppingService) {}
 
+  addIngredient(ingredient: Ingredient) {
+    this.shoppingService.addIngredient(ingredient);
+  }
+
 }

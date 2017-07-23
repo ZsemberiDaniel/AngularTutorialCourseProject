@@ -7,9 +7,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class HeaderComponent {
 
-  @Output() recipesClicked = new EventEmitter<null>();
-  @Output() shoppingClicked = new EventEmitter<null>();
-
   constructor() { }
 
 }

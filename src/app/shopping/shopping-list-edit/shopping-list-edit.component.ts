@@ -1,6 +1,7 @@
 import { ShoppingService } from './../shopping.service';
 import { Ingredient } from './../../shared/ingredient.model';
 import { Component, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-list-edit',
@@ -9,15 +10,15 @@ import { Component, ViewChild, ElementRef, EventEmitter, Output } from '@angular
 })
 export class ShoppingListEditComponent {
 
-  @ViewChild('nameInput') nameInputField: ElementRef;
-  @ViewChild('amountInput') amountInputField: ElementRef;
+  @ViewChild('f') editForm: NgForm;
 
   constructor(private shoppingService: ShoppingService) {}
 
   addIngredient() {
     this.shoppingService.addIngredient(
-      new Ingredient(this.nameInputField.nativeElement.value, this.amountInputField.nativeElement.value)
+      new Ingredient(this.editForm.value['name'], +this.editForm.value['amount'])
     );
+    this.editForm.reset();
   }
 
 }

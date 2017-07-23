@@ -1,8 +1,10 @@
+import { FormGroupDirective } from './form-group.directive';
 import { RecipeService } from './recipe-book/recipe.service';
 import { ShoppingService } from './shopping/shopping.service';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header/header.component';
@@ -12,6 +14,8 @@ import { RecipeListComponent } from './recipe-book/recipe-list/recipe-list.compo
 import { RecipeDetailComponent } from './recipe-book/recipe-detail/recipe-detail.component';
 import { RecipeBookComponent } from './recipe-book/recipe-book.component';
 import { RecipeItemComponent } from './recipe-book/recipe-list/recipe-item/recipe-item.component';
+import {AppRoutingModule} from './app-routing.module';
+import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
 
 @NgModule({
   declarations: [
@@ -23,10 +27,14 @@ import { RecipeItemComponent } from './recipe-book/recipe-list/recipe-item/recip
     ShoppingListComponent,
     RecipeBookComponent,
     RecipeItemComponent,
-    DropdownDirective
+    DropdownDirective,
+    RecipeEditComponent,
+    FormGroupDirective
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [RecipeService, ShoppingService],
   bootstrap: [AppComponent]
