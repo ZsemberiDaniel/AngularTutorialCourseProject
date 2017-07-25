@@ -1,10 +1,11 @@
+import { CanDeactivateGuard } from './can-deactivate-guard.service';
 import { FormGroupDirective } from './form-group.directive';
 import { RecipeService } from './recipe-book/recipe.service';
 import { ShoppingService } from './shopping/shopping.service';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header/header.component';
@@ -34,9 +35,10 @@ import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.compo
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [RecipeService, ShoppingService],
+  providers: [RecipeService, ShoppingService, CanDeactivateGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

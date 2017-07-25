@@ -23,6 +23,37 @@ export class RecipeService {
 
     constructor() { }
 
+    removeRecipe(index: number) {
+      this.recipes.splice(index, 1);
+    }
+
+    /**
+     * Updates recipe at index to the given recipe.
+     * @param recipe The updated recipe. It's id will be overriden
+     * @param index Which recipe to update
+     * @returns The recipe's id after overwriting
+     */
+    updateRecipe(recipe: Recipe, index: number): number {
+      recipe.id = index;
+      this.recipes[index] = recipe;
+
+      return recipe.id;
+    }
+
+    /**
+     * Adds a recipe at the given index. If the index is not given the recipe will be added to the end
+     * The recipe id will be overriden.
+     * @param recipe The recipe to be added
+     * @param index Where to add.
+     * @returns The recipe's id after overwriting
+     */
+    addRecipe(recipe: Recipe, index = this.recipes.length): number {
+      recipe.id = index;
+      this.recipes.splice(index, 0, recipe);
+
+      return recipe.id;
+    }
+
     getRecipes() { return this.recipes.slice(); }
     getRecipeWithId(id: number): Recipe | null {
       for (let recipe of this.recipes) {

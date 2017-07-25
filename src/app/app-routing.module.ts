@@ -1,3 +1,5 @@
+import { CanDeactivateGuard } from './can-deactivate-guard.service';
+import { ShoppingListEditComponent } from './shopping/shopping-list-edit/shopping-list-edit.component';
 import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
 import { RecipeDetailComponent } from './recipe-book/recipe-detail/recipe-detail.component';
 import {NgModule} from '@angular/core';
@@ -10,9 +12,11 @@ const routes: Route[] = [
   { path: 'recipes', component: RecipeBookComponent, children: [
     { path: 'details', component: RecipeDetailComponent },
     { path: 'new', component: RecipeEditComponent },
-    { path: 'edit', component: RecipeEditComponent }
+    { path: 'edit', component: RecipeEditComponent, canDeactivate: [CanDeactivateGuard] }
   ]},
-  { path: 'shopping', component: ShoppingListComponent }
+  { path: 'shopping', component: ShoppingListComponent, children: [
+    { path: 'edit', component: ShoppingListEditComponent }
+  ] }
 ];
 
 @NgModule({

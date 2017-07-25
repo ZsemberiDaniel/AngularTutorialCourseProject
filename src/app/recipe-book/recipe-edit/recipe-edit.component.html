@@ -1,3 +1,68 @@
-<p>
-  recipe-edit works!
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label class="control-label" for="name">Name</label>
+        <input type="text" 
+               name="name" 
+               id="name" 
+               class="form-control"
+               formControlName="name">
+        <span class="help-block">Name reqired!</span>
+      </div>
+
+      <div class="form-group">
+        <label for="imgPath" class="control-label">Image path (URL):</label>
+        <input type="text" 
+               name="imagePath" 
+               id="imagePath" 
+               class="form-control"
+               formControlName="imagePath">
+        <span class="help-block">Image path required!</span>
+        <img src="{{ form.get('imagePath').value }}" class="img-responsive">
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="description">Description</label>
+        <textarea name="description" 
+                  id="description" 
+                  class="form-control"
+                  formControlName="description"></textarea>
+        <span class="help-block">Description reqired!</span>
+      </div>
+
+      <div formArrayName="ingredients" class="form-group" [disableValidityCheck]="true">
+        <label class="control-label">Ingredients:</label>
+
+        <div class="form-group" 
+             *ngFor="let ingredient of form.get('ingredients').controls; let i = index"
+             [formGroupName]="i">
+          <div class="form-inline">
+            <div class="form-group">
+              <label for="ingredientName" class="control-label">Name:</label>
+              <input type="text" 
+                     name="ingredientName" 
+                     class="form-control" 
+                     formControlName="name">
+            </div>
+            <div class="form-group">
+              <label for="ingredientAmount" class="control-label">Amount:</label>
+              <input type="number" 
+                     name="ingredientAmount" 
+                     class="form-control" 
+                     formControlName="amount">
+            </div>
+            <button type="button" class="btn btn-danger" (click)="onDeleteIngredient(i)">X</button>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" (click)="onAddNewIngredient()">Add</button>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-success" [disabled]="!form.valid">Save</button>
+        <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

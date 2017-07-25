@@ -31,6 +31,11 @@ export class FormGroupDirective implements AfterViewInit, AfterViewChecked {
                 this.labelChild = element;
             }
         }
+
+        // have nothing -> disable the whole thing
+        if (!this.inputChild && !this.labelChild) {
+            this.disableValidityCheck = true;
+        }
     }
 
     ngAfterViewChecked() {
@@ -40,18 +45,22 @@ export class FormGroupDirective implements AfterViewInit, AfterViewChecked {
 
         // the input is invalid and has been touched
         if (!this.inputChildValid() && this.inputChildTouched()) {
-            this.renderer.addClass(this.elementRef.nativeElement, 'has-error');
+            if (this.inputChild) {
+                this.renderer.addClass(this.elementRef.nativeElement, 'has-error');
+            }
             if (this.labelChild) {
                 this.renderer.removeClass(this.labelChild, 'hidden');
             }
         } else {
-            this.renderer.removeClass(this.elementRef.nativeElement, 'has-error');
+            if (this.inputChild) {
+                this.renderer.removeClass(this.elementRef.nativeElement, 'has-error');
+            }
             if (this.labelChild) {
                 this.renderer.addClass(this.labelChild, 'hidden');
             }
         }
     }
 
-    inputChildValid() { return this.inputChild != null && this.inputChild.classList.contains('ng-valid'); }
+    inputChildValid() { return this.inputChild != null && !this.inputChild.classList.contains('ng-invalid'); }
     inputChildTouched() { return this.inputChild != null && this.inputChild.classList.contains('ng-touched'); }
 }

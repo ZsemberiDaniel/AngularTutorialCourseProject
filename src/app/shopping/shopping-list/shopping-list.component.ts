@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { ShoppingService } from './../shopping.service';
 import { Ingredient } from './../../shared/ingredient.model';
 import { Component } from '@angular/core';
@@ -9,10 +10,16 @@ import { Component } from '@angular/core';
 })
 export class ShoppingListComponent {
 
-  constructor(protected shoppingService: ShoppingService) {}
+  constructor(protected shoppingService: ShoppingService,
+              private router: Router,
+              private route: ActivatedRoute) {}
 
   addIngredient(ingredient: Ingredient) {
     this.shoppingService.addIngredient(ingredient);
+  }
+
+  onEditItem(index: number) {
+    this.router.navigate(['edit'], { relativeTo: this.route, queryParams: { id: index } });
   }
 
 }
