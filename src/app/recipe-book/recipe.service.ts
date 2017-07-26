@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs/Subscription';
+import { AuthService } from './../auth/auth.service';
 import { FirebaseServerService } from './../shared/firebase-server.service';
 import { Ingredient } from './../shared/ingredient.model';
 import { EventEmitter, Injectable } from '@angular/core';
@@ -7,8 +9,25 @@ import { Recipe } from './recipe.model';
 export class RecipeService {
 
     private recipes: Recipe[] = [];
+    get hasRecipes(): boolean { return this.recipes.length > 0; }
 
-    constructor(private firebaseServer: FirebaseServerService) {
+    constructor(private firebaseServer: FirebaseServerService, private authService: AuthService) {
+      // when is or will be logged in -> add the recipes
+      if (this.authService.isAuthenticated) {
+        this.fetchRecipes();
+      }
+
+      this.authService.onSigninStatusChanged.subscribe((loggedin: boolean) => {
+        if (loggedin) {
+          this.fetchRecipes();
+        } else {
+          // logged out -> remove all recipes
+          this.recipes.splice(0, this.recipes.length);
+        }
+      });
+    }
+
+    private fetchRecipes() {
       // get recipes from server
       this.firebaseServer.getRecipes().subscribe(
         (recipes: any[]) => {

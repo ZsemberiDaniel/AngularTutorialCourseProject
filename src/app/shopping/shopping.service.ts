@@ -1,3 +1,4 @@
+import { AuthService } from './../auth/auth.service';
 import { FirebaseServerService } from './../shared/firebase-server.service';
 import { Injectable } from '@angular/core';
 import { Ingredient } from './../shared/ingredient.model';
@@ -7,10 +8,26 @@ export class ShoppingService {
     private _shoppingList: Ingredient[] = [];
     get shoppingList(): Ingredient[] { return this._shoppingList.slice(); }
 
-    constructor(private firebaseServer: FirebaseServerService) {
-         firebaseServer.getIngredients().subscribe(
+    constructor(private firebaseServer: FirebaseServerService, private authService: AuthService) {
+        // if user authenticated or will be authenticated fetch the data
+        if (authService.isAuthenticated) {
+            this.fetchIngredients();
+        }
+
+        this.authService.onSigninStatusChanged.subscribe((loggedin: boolean) => {
+            // when log in get the ingredients
+            if (loggedin) {
+                this.fetchIngredients();
+            } else {
+                this._shoppingList.splice(0, this._shoppingList.length);
+            }
+        });
+    }
+
+    private fetchIngredients() {
+        this.firebaseServer.getIngredients().subscribe(
             (ingredients) => this._shoppingList = ingredients ? ingredients : [],
-            (error) => {}
+            (error) => { }
         );
     }
 

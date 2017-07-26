@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipeDetailComponent implements OnInit {
 
-  protected selectedRecipe: Recipe;
+  selectedRecipe: Recipe;
 
   constructor(private recipes: RecipeService,
               private shoppingList: ShoppingService,

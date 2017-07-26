@@ -35,7 +35,7 @@
         <label class="control-label">Ingredients:</label>
 
         <div class="form-group" 
-             *ngFor="let ingredient of form.get('ingredients').controls; let i = index"
+             *ngFor="let ingredient of ingredientControls.controls; let i = index"
              [formGroupName]="i">
           <div class="form-inline">
             <div class="form-group">

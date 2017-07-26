@@ -11,10 +11,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class ShoppingListEditComponent implements OnInit {
 
-  protected editForm: FormGroup;
+  editForm: FormGroup;
 
   private editMode = { editing: false, index: -1, item: <Ingredient> null };
-  protected get editing() { return this.editMode.editing; }
+  get editing() { return this.editMode.editing; }
 
   constructor(private shoppingService: ShoppingService, private route: ActivatedRoute,
              private router: Router) {}

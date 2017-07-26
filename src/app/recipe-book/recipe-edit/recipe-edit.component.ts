@@ -25,7 +25,8 @@ export class RecipeEditComponent implements OnInit, CanComponentDeactivate {
    */
   private saveClicked = false;
 
-  protected form: FormGroup;
+  form: FormGroup;
+  get ingredientControls(): FormArray { return (<FormArray> this.form.get('ingredients')); }
 
   constructor(private recipeService: RecipeService, private route: ActivatedRoute,
               private router: Router) { }

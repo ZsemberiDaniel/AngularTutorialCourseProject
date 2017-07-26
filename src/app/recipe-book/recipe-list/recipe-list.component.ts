@@ -10,7 +10,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class RecipeListComponent implements OnInit {
 
-  constructor(protected recipes: RecipeService) { }
+  constructor(public recipes: RecipeService) { }
 
   ngOnInit() { }
 

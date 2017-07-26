@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
 })
 export class ShoppingListComponent {
 
-  constructor(protected shoppingService: ShoppingService,
+  constructor(public shoppingService: ShoppingService,
               private router: Router,
               private route: ActivatedRoute) {}
 

@@ -1,3 +1,4 @@
+import { AuthService } from './../auth/auth.service';
 import { Ingredient } from './ingredient.model';
 import { Recipe } from './../recipe-book/recipe.model';
 
@@ -13,23 +14,25 @@ export class FirebaseServerService {
     private recipeJSON = 'recipes.json';
     private shoppingListJSON = 'shopping.json';
 
-    constructor(private http: Http) {}
+    constructor(private http: Http, private authService: AuthService) {}
 
     storeRecipes(recipes: Recipe[]) {
-        return this.http.put(this.URL + this.recipeJSON, recipes);
+        return this.http.put(this.URL + this.recipeJSON + '?auth=' + this.authService.token, recipes);
     }
     getRecipes() {
-        return this.http.get(this.URL + this.recipeJSON).map((response: Response) => {
-            return response.json();
-        });
+        return this.http.get(this.URL + this.recipeJSON + '?auth=' + this.authService.token)
+          .map((response: Response) => {
+              return response.json();
+          });
     }
 
     storeIngredients(ingredients: Ingredient[]) {
-        return this.http.put(this.URL + this.shoppingListJSON, ingredients);
+        return this.http.put(this.URL + this.shoppingListJSON + '?auth=' + this.authService.token, ingredients);
     }
     getIngredients() {
-        return this.http.get(this.URL + this.shoppingListJSON).map((response: Response) => {
-            return response.json();
-        });
+        return this.http.get(this.URL + this.shoppingListJSON + '?auth=' + this.authService.token)
+          .map((response: Response) => {
+              return response.json();
+          });
     }
 }

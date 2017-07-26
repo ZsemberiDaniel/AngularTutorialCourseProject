@@ -1,0 +1,33 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="#" class="navbar-brand">Recipe book</a>
+    </div>
+    <div class="navbar-default">
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active"><a routerLink="/recipes">Recipes</a></li>
+        <li routerLinkActive="active"><a routerLink="/shopping">Shopping list</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <ng-template [ngIf]="!authService.isAuthenticated">
+          <li style="cursor: pointer" routerLink="/sign-in" routerLinkActive="active"><a>Sign in</a></li>
+          <li style="cursor: pointer" routerLink="/sign-up" routerLinkActive="active"><a>Sign up</a></li>
+        </ng-template>
+
+        <ng-template [ngIf]="authService.isAuthenticated">
+          <li>
+            <a>{{ authService.username }}</a>
+          </li>
+          <li>
+            <a class="navbar-brand">
+              <img src="https://myspace.com/common/images/user.png" alt="User" id="userImg">
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" (click)="logOut()">Log out</a>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</nav>
